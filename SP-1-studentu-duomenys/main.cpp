@@ -13,16 +13,34 @@ public:
         this->vardas = vardas;
         this->pavarde = pavarde;
         
-        int pazymys;
-        for (int i = 0; i < namuDarbai; ++i) {
-                   std::cout << vardas << " " << pavarde <<  ": Įveskite " << (i + 1) << "-ojo namų darbo pažymį: ";
-                   std::cin >> pazymys;
-                   pazymiai.push_back(pazymys);
-               }
+        std::string arAtsitiktinis;
+        std::cout << "Generuoti atsitiktinius pažymius? Įrašykite 'TAIP' arba 'NE': ";
+        std::cin >> arAtsitiktinis;
+        
+        if(arAtsitiktinis == "NE"){
+            int pazymys;
+                for (int i = 0; i < namuDarbai; ++i) {
+                           std::cout << vardas << " " << pavarde <<  ": Įveskite " << (i + 1) << "-ojo namų darbo pažymį: ";
+                           std::cin >> pazymys;
+                           pazymiai.push_back(pazymys);
+                       }
 
-               std::cout << "Įveskite egzamino pažymį: ";
-               std::cin >> egzaminas;
+                        std::cout << "Įveskite egzamino pažymį: ";
+                        std::cin >> egzaminas;
+        } else if(arAtsitiktinis == "TAIP"){
+            std::random_device random;
+            std::default_random_engine engine(random());
+            int min = 1, max = 10;
+            std::uniform_int_distribution<int> distribution(min, max);
+            
+            for(int i = 0; i < namuDarbai; i++){
+                pazymiai.push_back(distribution(engine));
+            }
+            egzaminas = distribution(engine);
+        }
+
     }
+    
     Studentas(const Studentas& Kopija)
         : vardas(Kopija.vardas), pavarde(Kopija.pavarde), pazymiai(Kopija.pazymiai),
           namuDarbai(Kopija.namuDarbai), egzaminas(Kopija.egzaminas) {
@@ -39,7 +57,7 @@ public:
         return *this;
     }
     
-    ~Studentas(){};
+    ~Studentas(){}
 
     double galutinisVidurkis() const {
         int suma = 0;
@@ -50,23 +68,50 @@ public:
         return 0.4 * vidurkis + 0.6 * egzaminas;
     }
 
+    double galutinisMediana() const {
+        std::vector<int> rusiuojamiPazymiai = pazymiai;
+        std::sort(rusiuojamiPazymiai.begin(), rusiuojamiPazymiai.end());
+        
+        if (rusiuojamiPazymiai.size() % 2 == 0) {
+            return (rusiuojamiPazymiai[rusiuojamiPazymiai.size() / 2 - 1] + rusiuojamiPazymiai[rusiuojamiPazymiai.size() / 2]) / 2.0;
+        } else {
+            return rusiuojamiPazymiai[rusiuojamiPazymiai.size() / 2];
+        }
+    }
+
     void gautiRez() const {
-        std::cout << std::left << std::setw(15) << "Pavardė"
-                  << std::setw(20) << "Vardas"
-                  << std::setw(25) << "Galutinis (Vid.)"
-                  << std::endl;
+        int pasirinkimas;
+
+        std::cout << "Pasirinkite skaičiavimo būdą:" << std::endl;
+        std::cout << "1 - Vidurkis" << std::endl;
+        std::cout << "2 - Mediana" << std::endl;
+        std::cout << "Įveskite atitinkamą skaičių: ";
+        std::cin >> pasirinkimas;
         
-        std::cout << "----------------------------------------------" << std::endl;
-        
-        std::cout << std::left << std::setw(15) << pavarde
-                  << std::setw(20) << vardas
-                  << std::setw(25) << std::fixed << std::setprecision(2) << galutinisVidurkis()
-                  << std::endl << std::endl;
+        std::cout << std::left
+                        << std::setw(18) << "Pavardė"
+                        << std::setw(18) << "Vardas";
+                    if(pasirinkimas == 1){
+                        std::cout  << std::setw(16) << "Galutinis (Vid.)";
+                    } else if (pasirinkimas == 2){
+                        std::cout  << std::setw(16) << "Galutinis (Med.)";
+                    }
+                        std::cout << std::endl;
+        std::cout << "----------------------------------------------------" << std::endl;
+        std::cout << std::left
+                        << std::setw(18) << pavarde
+                        << std::setw(18) << vardas;
+                    if(pasirinkimas == 2){
+                        std::cout << std::setw(16) << std::fixed << std::setprecision(2) << galutinisVidurkis();
+
+                    } else if (pasirinkimas == 1){
+                        std::cout << std::setw(16) << std::fixed << std::setprecision(2) << galutinisMediana();
+                    }
+                        std::cout << std::endl << std::endl;
     }
 };
 
 int main() {
-//    ------------savarankiškas įvedimas--------------
     std::string vardas, pavarde;
     int namuDarbai;
 
@@ -80,13 +125,6 @@ int main() {
     
     Studentas student1(vardas, pavarde, namuDarbai);
     student1.gautiRez();
-////    ------------kopijavimas-------------------------
-//    Studentas student2("Tomas", "Tomaitis", 3);
-//    student2.gautiRez();
-////    ------------priskyrimas-------------------------
-//    Studentas student3("Romas", "Romanovas", 4);
-//    Studentas student4 = student3;
-//    student3.gautiRez();
     
     return 0;
 }
