@@ -1,0 +1,10 @@
+Pavardė          Vardas            ND1  ND2  ND3  ND4  ND5  Egzaminas 
+---------------------------------------------------------------------
+Matulis           Lukas             6    10   9    3    4    2         
+Miliauskas        Deividas          9    2    4    2    3    7         
+Nikitin           Nikita            7    2    1    9    5    9         
+Saviciunas        Paulius           6    10   4    2    10   5         
+Daniunas          Adolis            2    5    7    2    4    2         
+Kirdeikyte        Lauryna           5    1    9    8    3    9         
+Mockus            Rokas             2    3    7    4    4    4         
+Baranauskas       Nojus             10   6    7    4    10   6
