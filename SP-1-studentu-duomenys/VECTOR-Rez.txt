@@ -1,8 +1,0 @@
-->>> std::vector <<<- // main.cpp 70eil. && 119eil.
-
-[215eil. funckijos kvietimas]
-Įrašymo sąnaudos: 10 000 000 - Atminties buvo sunaudota 800000024 baitai.
-1) STRATEGIJA: Atminties sąnaudos po rūšiavimo funkcijos: 10 000 000 - 2065743872 KB ~ 1.97 GB
-
-[216eil. funckijos kvietimas]
-2) STRATEGIJA: Atminties sąnaudos po rūšiavimo funkcijos: 10 000 000 - 2255060992 KB ~ 2.10 GB

@@ -1,8 +1,0 @@
-->>> std::deque <<<- main.cpp 72eil. && 121eil.
-
-[215eil. funckijos kvietimas]
-Įrašymo sąnaudos: 10 000 000 - Atminties buvo sunaudota 800000048 baitai.
-1) STRATEGIJA: Atminties sąnaudos po rūšiavimo funkcijos: 10 000 000 - 1148993536 KB ~ 1.07 GB
-
-[216eil. funckijos kvietimas]
-2) STRATEGIJA: Atminties sąnaudos po rūšiavimo funkcijos: 10 000 000 - 1765326848 KB ~ 1.64 GB
