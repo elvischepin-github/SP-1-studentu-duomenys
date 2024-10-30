@@ -1,44 +1,6 @@
-#include "libraries.h"
-#include "studentas.h"
-
-//START Rusiavimo Funkcija//
-void rusiuotiStudentus(const std::string& sablonuFailas, const std::string& geriFailas, const std::string& blogiFailas){
-    
-    std::ifstream skaitomasis(sablonuFailas);
-    std::ofstream geriIrasymas(geriFailas);
-    std::ofstream blogiIrasymas(blogiFailas);
-    
-    std::string eile;
-    
-    if(skaitomasis.is_open() && geriIrasymas.is_open() && blogiIrasymas.is_open()){
-        std::getline(skaitomasis, eile);
-        geriIrasymas << eile << "\n";
-        blogiIrasymas << eile << "\n";
-        
-        while(std::getline(skaitomasis, eile)){
-            std::stringstream ss(eile);
-            std::string vardas, pavarde;
-            std::vector<int> pazymiai(5);
-            int egzaminas;
-            float vidurkis;
-            
-            ss >> vardas >> pavarde;
-            for (int i = 0; i < 5; i++){
-                ss >> pazymiai[i];
-            }
-            ss >> egzaminas;
-            ss >> vidurkis;
-            
-            if(vidurkis >= 5.0){
-                geriIrasymas << eile << "\n";
-            } else blogiIrasymas << eile << "\n";
-        }
-        std::cout << "Surūšiuota √" << std::endl;
-    } else {
-        std::cerr << "Klaida. Rūšiavimas nepavyko, failai nebuvo atidaryti!";
-    }
-}
-//END Rusiavimo Funkcija//
+#include "visi.h/libraries.h"
+#include "visi.h/studentas.h"
+#include "visi.h/funkcijos.h"
 
 int main() {
     srand((unsigned int)time(0));
@@ -109,9 +71,12 @@ int main() {
             for(int pazymys : pazymiai){
                 irasymoFailas << std::right << std::setw(6) << pazymys;
             }
+            
             irasymoFailas   << std::right << std::setw(6) << studentas.gautiEgzamina()
                             << std::setw(8) << std::fixed << std::setprecision(2) << studentas.gautiVidurki() << "\n";
         }
+        std::cout << "Atminties buvo sunaudota " << sizeof(studentai) + (sizeof(Studentas) * studentai.size()) << " baitai.\n";
+
     irasymoFailas.close();
     
     //CHRONO END!!!
@@ -136,7 +101,8 @@ int main() {
     auto pradetiRusiavima = std::chrono::high_resolution_clock::now();
     
     if(arRuosuotiPasirinkimas == 1){
-        rusiuotiStudentus("sablonai.txt", "geri.txt", "blogi.txt");
+//        rusiuotiStudentusDviejoseFailuose("sablonai.txt", "geri.txt", "blogi.txt");
+        rusiuotiStudentusVienameFaile("sablonai.txt", "blogi.txt");
     } else std::cout << "Programa baigta." << std::endl;
     
     //CHRONO END!!!

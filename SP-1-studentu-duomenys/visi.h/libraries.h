@@ -14,5 +14,9 @@
 #include <chrono>
 #include <list>
 #include <deque>
+#include <sys/resource.h> // macOS memory usage
+// #include <windows.h> // Windows memory usage
+// #include <psapi.h> // Windows memory usage
+#include <algorithm>
 
 #endif
